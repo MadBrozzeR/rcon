@@ -1,0 +1,32 @@
+{
+  "name": "mbr-rcon",
+  "version": "0.0.1",
+  "description": "Source RCON (remote console) client implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madbrozzer/rcon.git"
+  },
+  "keywords": [
+    "rcon",
+    "srcds",
+    "source",
+    "remote console",
+    "valve",
+    "gaming",
+    "steam"
+  ],
+  "author": "MadBrozzeR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madbrozzer/rcon/issues"
+  },
+  "homepage": "https://github.com/madbrozzer/rcon#readme",
+  "dependencies": {
+    "mbr-buffer": "^1.2.2",
+    "mbr-queue": "^1.0.3"
+  }
+}
