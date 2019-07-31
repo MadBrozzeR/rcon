@@ -39,7 +39,10 @@ Rcon.prototype.connect = function connect (params = EMPTY) {
   });
   this.socket.on('data', function (data) {
     _this.debug && console.log('server:', data);
-    queue.trigger('data', data);
+    const packets = Packet.read(data);
+    for (let index = 0 ; index < packets.length ; ++index) {
+      queue.trigger('data', packets[index]);
+    }
   });
   this.socket.connect({
     port: this.port,

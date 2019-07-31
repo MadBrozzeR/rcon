@@ -1,4 +1,3 @@
-const Packet = require('../packets.js');
 const TYPE = require('../constants.js').TYPE;
 const common = require('./common.js');
 
@@ -24,8 +23,7 @@ module.exports = {
       this.queue.trigger('error', error);
     }
   },
-  data: function (data) {
-    const packet = Packet.read(data);
+  data: function (packet) {
     if (packet.type === TYPE.RESPONSE_VALUE) {
       if (packet.id === EXEC_PACKET_ID) {
         this.params.response += packet.payload;

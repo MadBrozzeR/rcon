@@ -1,4 +1,3 @@
-const Packet = require('../packets.js');
 const TYPE = require('../constants.js').TYPE;
 const common = require('./common.js');
 
@@ -16,8 +15,7 @@ module.exports = {
       this.queue.trigger('error', error);
     }
   },
-  data: function (data) {
-    const packet = Packet.read(data);
+  data: function (packet) {
     if (packet.type === TYPE.AUTH_RESPONSE) {
       if (packet.id === AUTH_PACKET_ID) {
         this.queue.trigger('success');
