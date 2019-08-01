@@ -1,4 +1,3 @@
-const net = require('net');
 const Queue = require('mbr-queue');
 const EMPTY = require('./constants.js').TYPE;
 const operations = require('./operations/index.js');
@@ -19,34 +18,11 @@ Rcon.prototype.connect = function connect (params = EMPTY) {
     return;
   }
 
-  const queue = this.queue;
-
-  queue.push(operations.auth, {
+  this.queue.push(operations.auth, {
     password: params.password || this.password,
     session: this,
     onSuccess: params.onSuccess,
     onError: params.onError
-  });
-
-  const _this = this;
-  this.socket = new net.Socket();
-  this.socket.on('close', function () {
-    queue.trigger('close');
-    _this.socket = null;
-  });
-  this.socket.on('connect', function () {
-    queue.trigger('connect');
-  });
-  this.socket.on('data', function (data) {
-    _this.debug && console.log('server:', data);
-    const packets = Packet.read(data);
-    for (let index = 0 ; index < packets.length ; ++index) {
-      queue.trigger('data', packets[index]);
-    }
-  });
-  this.socket.connect({
-    port: this.port,
-    host: this.host
   });
 
   return this;
@@ -54,7 +30,7 @@ Rcon.prototype.connect = function connect (params = EMPTY) {
 
 Rcon.prototype.send = function send (command, params = EMPTY) {
   if (!this.socket) {
-    return;
+    return this;
   }
 
   this.queue.push(operations.exec, {
