@@ -1,5 +1,6 @@
 module.exports = {
-  auth: require('./auth.js'),
+  connect: require('./connect.js'),
   exec: require('./exec.js'),
-  close: require('./close.js')
+  close: require('./close.js'),
+  auth: require('./auth.js')
 };

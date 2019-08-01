@@ -8,18 +8,14 @@ function Rcon (params = EMPTY) {
   this.port = params.port || 27015;
   this.password = params.pass;
   this.debug = !!params.debug;
+  this.onClose = params.onClose;
 
   this.queue = new Queue();
   this.socket = null;
 }
 
 Rcon.prototype.connect = function connect (params = EMPTY) {
-  if (this.socket) {
-    return;
-  }
-
-  this.queue.push(operations.auth, {
-    password: params.password || this.password,
+  this.queue.push(operations.connect, {
     session: this,
     onSuccess: params.onSuccess,
     onError: params.onError
@@ -28,11 +24,18 @@ Rcon.prototype.connect = function connect (params = EMPTY) {
   return this;
 };
 
-Rcon.prototype.send = function send (command, params = EMPTY) {
-  if (!this.socket) {
-    return this;
-  }
+Rcon.prototype.auth = function auth (params = EMPTY) {
+  this.queue.push(operations.auth, {
+    password: params.password || this.password,
+    session: this,
+    onSuccess: params.onSuccess,
+    onError: params.onError
+  });
 
+  return this;
+}
+
+Rcon.prototype.send = function send (command, params = EMPTY) {
   this.queue.push(operations.exec, {
     command: command,
     session: this,

@@ -25,25 +25,23 @@ new Server(Server.listener.buffers(listeners)).listen(25002, function () {
   const server = this;
 
   new Rcon({
-    debug: true,
     port: 25002,
     pass: '111'
   })
     .connect({
-      password: '112',
       onSuccess: function () {
-        test.failed('Connection with wrong password must fail');
+        test.succeed('Connection must succeed');
       },
       onError: function (error) {
-        test.succeed('Connection with wrong password must fail');
+        test.failed('Connection must succeed');
       }
     })
-    .connect({
+    .auth({
       onSuccess: function () {
-        test.succeed('Connection with correct password must succeed');
+        test.succeed('Authentication with correct password must succeed');
       },
-      onError: function (error) {
-        test.failed('Connection with correct password must succeed');
+      onError: function () {
+        test.failed('Authentication with correct password must succeed');
       }
     })
     .send('list', {
