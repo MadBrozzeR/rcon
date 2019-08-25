@@ -31,9 +31,12 @@ module.exports = {
           queue.trigger('data', packets[index]);
         }
       });
+      session.socket.on('error', function (error) {
+        queue.trigger('error', error);
+      });
       session.socket.connect({
-        port: session.port,
-        host: session.host
+        port: session.rcon.port,
+        host: session.rcon.host
       });
     } catch (error) {
       session.socket = null;
