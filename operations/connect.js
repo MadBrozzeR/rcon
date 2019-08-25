@@ -18,14 +18,14 @@ module.exports = {
     try {
       session.socket.on('close', function () {
         queue.trigger('close');
-        (session.onClose instanceof Function) && session.onClose();
+        (session.rcon.onClose instanceof Function) && session.rcon.onClose();
         session.socket = null;
       });
       session.socket.on('connect', function () {
         queue.trigger('connect');
       });
       session.socket.on('data', function (data) {
-        session.debug && console.log('server:', data);
+        session.rcon.debug && console.log('server:', data);
         const packets = Packet.read(data);
         for (let index = 0 ; index < packets.length ; ++index) {
           queue.trigger('data', packets[index]);
