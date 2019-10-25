@@ -15,7 +15,7 @@ module.exports = {
       this.params.session.write(
         TYPE.AUTH,
         PACKET_ID.AUTH,
-        this.params.password
+        this.params.password.toString()
       );
     } catch (error) {
       this.queue.trigger('error', error);
