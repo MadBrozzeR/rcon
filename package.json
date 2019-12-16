@@ -1,6 +1,6 @@
 {
   "name": "mbr-rcon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Source RCON (remote console) client implementation",
   "main": "index.js",
   "scripts": {

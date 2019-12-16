@@ -17,19 +17,19 @@ const rcon = new Rcon({
   onClose: function () {} // Callback in case of connection being closed.
 });
 
-rcon.connect({
+const connection = rcon.connect({
   onSuccess: function () {},   // Callback in case of successfull connection.
   onError: function (error) {} // Callback in case of connection error.
 });
 
-rcon.auth({
+connection.auth({
   password: '123',              // Password can be provided here. If this field is omitted,
                                 // then password from constructor will be used.
   onSuccess: function () {},    // Callback in case of successfull authentication.
   onError: function (error) {}  // Callback in case of authentication failure.
 });
 
-rcon.send(
+connection.send(
   'command',                            // Command to be sent to the server.
   {
     onSuccess: function (response) {},  // Callback with server response.
@@ -37,7 +37,7 @@ rcon.send(
   }
 );
 
-rcon.close();   // Close rcon server.
+connection.close();   // Close rcon server.
 ```
 
 You can also chain commands, like so:
