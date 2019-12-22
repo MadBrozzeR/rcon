@@ -6,7 +6,7 @@ const Packet = require('./packets.js');
 function Rcon (params = EMPTY) {
   this.host = params.host || 'localhost';
   this.port = params.port || 27015;
-  this.password = params.pass;
+  this.password = params.password || params.pass;
   this.debug = !!params.debug;
   this.onClose = params.onClose;
 }
